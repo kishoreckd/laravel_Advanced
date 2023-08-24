@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SheduledClassController;
@@ -33,22 +34,36 @@ Route::middleware('auth')->group(function () {
 /**resource controller for the instructor
  * to schedule it  by CRUD
  */
-
-Route::resource('/instructor/schedule',SheduledClassController::class)
+Route::resource('/instructor/schedule', SheduledClassController::class)
     ->only(['index', 'create', 'store', 'destroy'])->middleware(['auth', 'role:instructor']);
 
 
-    Route::get('/dashboard',DashboardController::class)->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', DashboardController::class)->middleware(['auth'])->name('dashboard');
 /********************************************** */
+
+/***Booking controller for the member in the gym to book appointment
+ *
+ */
+
+/***Grouping function for members */
+Route::middleware(['auth', 'role:member'])->group(function () {
+    Route::get('/member/dashboard', function () {
+        return view('member.dashboard');
+    })->name('member.dashboard');
+    Route::get('/member/book', [BookingsController::class, 'create'])->name('booking.create');
+    Route::Post('/member/bookings', [BookingsController::class, 'store'])->name('booking.store');
+    Route::get('/member/bookings', [BookingsController::class, 'index'])->name('booking.index');
+    Route::delete('/member/bookings', [BookingsController::class, 'destroy'])->name('booking.destroy');
+
+
+});
 
 /***Dashboard controller for [member,instructor,admin] */
 Route::get('/instructor/dashboard', function () {
     return view('instructor.dashboard');
 })->middleware(['auth', 'role:instructor'])->name('instructor.dashboard');
 
-Route::get('/member/dashboard', function () {
-    return view('member.dashboard');
-})->middleware(['auth', 'role:member'])->name('member.dashboard');
+
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');

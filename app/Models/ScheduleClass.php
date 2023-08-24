@@ -14,7 +14,7 @@ class ScheduleClass extends Model
     protected $casts =[
         'date_time'=>'datetime'
     ];
-    
+
     public function instructor() {
 
         return $this->belongsTo(User::class,'instructor_id');
@@ -22,5 +22,9 @@ class ScheduleClass extends Model
 
     public function classType()  {
         return $this->belongsTo(ClassType::class);
+    }
+
+    public function members() {
+        return $this->belongsToMany(User::class,'bookings');
     }
 }
