@@ -53,7 +53,7 @@ Route::middleware(['auth', 'role:member'])->group(function () {
     Route::get('/member/book', [BookingsController::class, 'create'])->name('booking.create');
     Route::Post('/member/bookings', [BookingsController::class, 'store'])->name('booking.store');
     Route::get('/member/bookings', [BookingsController::class, 'index'])->name('booking.index');
-    Route::delete('/member/bookings', [BookingsController::class, 'destroy'])->name('booking.destroy');
+    Route::delete('/member/bookings/{id}', [BookingsController::class, 'destroy'])->name('booking.destroy');
 
 
 });

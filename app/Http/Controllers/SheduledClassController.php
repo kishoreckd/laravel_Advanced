@@ -16,7 +16,7 @@ class SheduledClassController extends Controller
     public function index()
     {
         /**getting value from model scheduleclasses */
-        $scheduledClasses = auth()->user()->ScheduleClasses()->where('date_time', '>', now())->oldest('date_time')->get();
+        $scheduledClasses = auth()->user()->ScheduleClasses()->upcoming()->oldest('date_time')->get();
         return view('instructor.upcoming')->with('scheduledClasses', $scheduledClasses);
         // dd($scheduledClasses);
     }
@@ -61,30 +61,6 @@ class SheduledClassController extends Controller
 
         //
         return redirect()->route('schedule.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
     }
 
     /**
