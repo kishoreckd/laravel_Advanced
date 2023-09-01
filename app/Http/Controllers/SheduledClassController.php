@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ClassType;
-use App\Models\ScheduleClass;
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Http\Request;
 use Nette\Schema\Schema;
+use App\Models\ClassType;
+use Illuminate\Http\Request;
+use App\Events\ClassCanceled;
+use App\Models\ScheduleClass;
+use Illuminate\Routing\Controller;
+use Illuminate\Console\Scheduling\Schedule;
 
 class SheduledClassController extends Controller
 {
@@ -81,8 +83,10 @@ class SheduledClassController extends Controller
 
         }
 
+        ClassCanceled::dispatch($schedule);
 
-        $schedule->delete();
+        // $schedule->delete();
+        // $schedule->members()->detach();
         return redirect()->route('schedule.index');
     }
 }

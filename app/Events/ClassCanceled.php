@@ -14,12 +14,12 @@ use Illuminate\Queue\SerializesModels;
 class ClassCanceled
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $scheduleClass;
+
 
     /**
      * Create a new event instance.
      */
-    public function __construct( ScheduleClass $scheduleClass)
+    public function __construct(public ScheduleClass $scheduleClass)
     {
         //
     }
