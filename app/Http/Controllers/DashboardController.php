@@ -11,6 +11,7 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
+        // dd($request);
         switch (auth()->user()->role) {
             case 'instructor':
                 # code...
@@ -21,14 +22,14 @@ class DashboardController extends Controller
                 /**It returns whther the user is admin */
                 return redirect()->route('admin.dashboard');
                 break;
-                
+
             case 'member':
                 /**It returns whther the user is member */
                 return redirect()->route('member.dashboard');
                 break;
 
             default:
-                # code...
+              # code...
                   return redirect()->route('login');
                 break;
         }

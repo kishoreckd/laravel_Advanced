@@ -39,13 +39,13 @@ class UserSeeder extends Seeder
          User::factory()->create([
             'name'=>'instructor1',
             'email'=>'instructor1@gmail.com',
-            'role'=>'instructor1'
+            'role'=>'instructor'
 
          ]);
          User::factory()->create([
             'name'=>'instructor2',
             'email'=>'instructor2@gmail.com',
-            'role'=>'instructor2'
+            'role'=>'instructor'
 
          ]);
          User::factory()->count(10)->create();
